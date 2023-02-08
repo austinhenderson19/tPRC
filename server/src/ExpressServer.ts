@@ -1,5 +1,7 @@
+import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
+import { appRouter } from './AppRouter';
 
 export class ExpressApplication {
   public constructor() {
@@ -15,7 +17,9 @@ export class ExpressApplication {
     this.app.set('port', process.env.APP_PORT);
   }
 
-  private setRoutes(): void {}
+  private setRoutes(): void {
+    this.app.use('/trpc', createExpressMiddleware({ router: appRouter, }));
+  }
 
   public start(): void {
     this.app.listen(this.app.get('port'), (): void => console.log(`Server Listening on Port ${this.app.get('port')}`));
