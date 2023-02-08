@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import dotenv from 'dotenv';
 
 export class ExpressApplication {
   public constructor() {
@@ -10,6 +11,7 @@ export class ExpressApplication {
   private app: Application;
 
   private setMiddleware(): void {
+    dotenv.config();
     this.app.set('port', process.env.APP_PORT);
   }
 
