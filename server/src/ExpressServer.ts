@@ -1,4 +1,5 @@
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
+import cors from 'cors';
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import { appRouter } from './AppRouter';
@@ -14,6 +15,7 @@ export class ExpressApplication {
 
   private setMiddleware(): void {
     dotenv.config();
+    this.app.use(cors({ origin: 'http://localhost:3000' }));
     this.app.set('port', process.env.APP_PORT);
   }
 
